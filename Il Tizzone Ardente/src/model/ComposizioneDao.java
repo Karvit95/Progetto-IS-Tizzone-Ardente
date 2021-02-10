@@ -21,8 +21,8 @@ public class ComposizioneDao {
 				ps=conn.prepareStatement(sql);
 				ps.setInt(1, c.getQuantità());
 				ps.setString(2, c.getCodiceFattura());
-				ps.setInt(3, c.getIVA());
-				ps.setString(4, c.getIDProdotto());
+				ps.setInt(3, c.getIva());
+				ps.setString(4, c.getIdProdotto());
 				ps.setDouble(5, c.getPrezzoPagato());
 	                       
 				ps.executeUpdate();		 

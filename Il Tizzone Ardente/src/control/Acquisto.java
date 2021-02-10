@@ -56,7 +56,7 @@ public class Acquisto extends HttpServlet {
 			
 			for(ProdottoOrdinato po: prodottiNelCarrello) {
 				
-				c = new Composizione(po.getQuantità(), codiceFattura, 22, po.getProdottoIllustrato().getProdotto().getId(), (po.getProdottoIllustrato().getProdotto().getPrezzo()-po.getProdottoIllustrato().getProdotto().getPrezzo()*po.getProdottoIllustrato().getProdotto().getSconto()/100)*po.getQuantità());
+				c = new Composizione(po.getQuantità(), codiceFattura, 22, po.getProdotto().getId(), (po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100)*po.getQuantità());
 				
 					cDao.doSave(c);
 				

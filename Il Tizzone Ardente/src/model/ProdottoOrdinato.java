@@ -7,10 +7,10 @@ public class ProdottoOrdinato implements Serializable {
 	private static final long serialVersionUID = 8657571845222910205L;
 	
 	int quantità;
-	ProdottoConIllustrazione prodottoIllustrato;
+	Prodotto prodotto;
 	
-	public ProdottoOrdinato(ProdottoConIllustrazione p, int quantità) {
-		this.prodottoIllustrato = p;
+	public ProdottoOrdinato(Prodotto p, int quantità) {
+		this.prodotto = p;
 		this.quantità = quantità;
 	}
 
@@ -22,12 +22,12 @@ public class ProdottoOrdinato implements Serializable {
 		this.quantità = quantità;
 	}
 
-	public ProdottoConIllustrazione getProdottoIllustrato() {
-		return prodottoIllustrato;
+	public Prodotto getProdotto() {
+		return prodotto;
 	}
 
-	public void setProdottoIllustrato(ProdottoConIllustrazione prodotto) {
-		this.prodottoIllustrato = prodotto;
+	public void setProdotto(Prodotto prodotto) {
+		this.prodotto = prodotto;
 	}
 
 	

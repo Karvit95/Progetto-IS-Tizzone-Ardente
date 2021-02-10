@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 
 import model.Carrello;
 import model.Prodotto;
-import model.ProdottoConIllustrazione;
 
 @WebServlet("/InserimentoNelCarrello")
 public class InserimentoNelCarrello extends HttpServlet {
@@ -38,9 +37,7 @@ public class InserimentoNelCarrello extends HttpServlet {
 			}
 		}
 		
-		ProdottoConIllustrazione pci = new ProdottoConIllustrazione(p);
-		
-		carrello.aggiungiProdottoCarrello(pci);
+		carrello.aggiungiProdottoCarrello(p);
 		session.setAttribute("carrello", carrello );
 
 	}

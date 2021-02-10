@@ -8,20 +8,20 @@ public class Composizione implements Serializable {
 	
 	private int quantità;
 	private String codiceFattura;
-	private int IVA;
-	private String IDProdotto;
+	private int iva;
+	private String idProdotto;
 	private double prezzoPagato;
 
 	public Composizione() {
 		
 	}
 
-	public Composizione(int quantità, String codiceFattura, int iVA, String iDProdotto, double prezzoPagato) {
+	public Composizione(int quantità, String codiceFattura, int iva, String idProdotto, double prezzoPagato) {
 		
 		this.quantità = quantità;
 		this.codiceFattura = codiceFattura;
-		this.IVA = iVA;
-		this.IDProdotto = iDProdotto;
+		this.iva = iva;
+		this.idProdotto = idProdotto;
 		this.prezzoPagato = prezzoPagato;
 	}
 
@@ -41,20 +41,20 @@ public class Composizione implements Serializable {
 		this.codiceFattura = codiceFattura;
 	}
 
-	public int getIVA() {
-		return IVA;
+	public int getIva() {
+		return iva;
 	}
 
-	public void setIVA(int iVA) {
-		IVA = iVA;
+	public void setIva(int iva) {
+		this.iva = iva;
 	}
 
-	public String getIDProdotto() {
-		return IDProdotto;
+	public String getIdProdotto() {
+		return idProdotto;
 	}
 
-	public void setIDProdotto(String iDProdotto) {
-		IDProdotto = iDProdotto;
+	public void setIdProdotto(String idProdotto) {
+		this.idProdotto = idProdotto;
 	}
 
 	public double getPrezzoPagato() {
@@ -64,7 +64,4 @@ public class Composizione implements Serializable {
 	public void setPrezzoPagato(double prezzoPagato) {
 		this.prezzoPagato = prezzoPagato;
 	}
-	
-	
-
 }

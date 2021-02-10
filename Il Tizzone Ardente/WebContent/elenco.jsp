@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList" import="model.ProdottoConIllustrazione"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList" import="model.Prodotto"%>
 <!DOCTYPE html>
 
 <html>
@@ -21,7 +21,7 @@
 		<%@ include file = "elements/header.jsp" %>
 		<%@ include file = "elements/navbar.jsp" %>
 		
-		<% ArrayList<ProdottoConIllustrazione> elenco = (ArrayList<ProdottoConIllustrazione>) request.getAttribute("elenco");
+		<% ArrayList<Prodotto> elenco = (ArrayList<Prodotto>) request.getAttribute("elenco");
 		   if(elenco.isEmpty()){ %>
 		   
 		<h1> Nessun Risultato</h1>  
@@ -30,28 +30,28 @@
 		<div class="container-fluid">
 			<div class="row">
 				
-				<% for(ProdottoConIllustrazione pci: elenco){%>	
+				<% for(Prodotto prodotto: elenco){%>	
     	
     			<div class="col-sm-3">
       				<div class="prodottoInElenco">
       			
-      					<img class="img-fluid" src="<%=pci.getImmagine().getUrl()%>">
-      					<a href="GenerazionePaginaProdotto?id=<%=pci.getProdotto().getId()%>">
-      						<h3><%=pci.getProdotto().getNome()%></h3>
+      					<img class="img-fluid" src="<%=prodotto.getImmagine()%>">
+      					<a href="GenerazionePaginaProdotto?id=<%=prodotto.getId()%>">
+      						<h3><%=prodotto.getNome()%></h3>
       					</a>
       					
-      					<%if(pci.getProdotto().getSconto() == 0) {%>
+      					<%if(prodotto.getSconto() == 0) {%>
       					
-      					<p class="price">prezzo:<%=pci.getProdotto().getPrezzo()%>0€</p>
+      					<p class="price">prezzo:<%=prodotto.getPrezzo()%>0€</p>
       					
       					<%} else { %>
       				
-      					<p class="price"><%=pci.getProdotto().getPrezzo()-pci.getProdotto().getPrezzo()*pci.getProdotto().getSconto()/100%>0€</p>
-      					<p><strong>prezzo:<del><%=pci.getProdotto().getPrezzo()%>0</del></strong>(-<%=pci.getProdotto().getSconto()%>%)</p>
+      					<p class="price"><%=prodotto.getPrezzo()-prodotto.getPrezzo()*prodotto.getSconto()/100%>0€</p>
+      					<p><strong>prezzo:<del><%=prodotto.getPrezzo()%>0</del></strong>(-<%=prodotto.getSconto()%>%)</p>
       					
       					<% } %>
       					
-      					<p><%=pci.getProdotto().getDescrizione()%></p>
+      					<p><%=prodotto.getDescrizione()%></p>
       				
       				</div>
     			  </div>

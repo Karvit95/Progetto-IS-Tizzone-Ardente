@@ -71,21 +71,21 @@
             			<tr>
             				<th scope="row" class="border-0">
                 				<div class="p-2">
-                      				<img src="<%=po.getProdottoIllustrato().getImmagine().getUrl()%>" alt="" width="70" class="img-fluid rounded shadow-sm">
+                      				<img src="<%=po.getProdotto().getImmagine()%>" alt="" width="70" class="img-fluid rounded shadow-sm">
                       				<div class="ml-3 d-inline-block align-middle">
-                        				<h5 class="mb-0"> <a href="GenerazionePaginaProdotto?id=<%=po.getProdottoIllustrato().getProdotto().getId()%>" class="text-dark d-inline-block align-middle"><%= po.getProdottoIllustrato().getProdotto().getNome()%></a></h5><span class="text-muted font-weight-normal font-italic d-block">Categoria: <%=po.getProdottoIllustrato().getProdotto().getCatalogo()%></span>
+                        				<h5 class="mb-0"> <a href="GenerazionePaginaProdotto?id=<%=po.getProdotto().getId()%>" class="text-dark d-inline-block align-middle"><%= po.getProdotto().getNome()%></a></h5><span class="text-muted font-weight-normal font-italic d-block">Categoria: <%=po.getProdotto().getCatalogo()%></span>
                       				</div>
                     			</div>
                   			</th>
-                  			<td class="border-0 align-middle"><strong><%=po.getProdottoIllustrato().getProdotto().getPrezzo()-po.getProdottoIllustrato().getProdotto().getPrezzo()*po.getProdottoIllustrato().getProdotto().getSconto()/100%>0</strong></td>
+                  			<td class="border-0 align-middle"><strong><%=po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100%>0</strong></td>
                   			<td class="border-0 align-middle"><strong><%=po.getQuantità() %></strong></td>
-                  			<td class="border-0 align-middle"><strong><%=(po.getProdottoIllustrato().getProdotto().getPrezzo()-po.getProdottoIllustrato().getProdotto().getPrezzo()*po.getProdottoIllustrato().getProdotto().getSconto()/100) * po.getQuantità()%>0</strong></td>
-                  			<td class="border-0 align-middle"><a href="RimozioneProdottoCarrello?id=<%=po.getProdottoIllustrato().getProdotto().getId()%>"><button  type="submit" class="remove btn btn-warning"> <i class='fas fa-times'></i> Rimuovi dal carrello </button></a></td>
+                  			<td class="border-0 align-middle"><strong><%=(po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100) * po.getQuantità()%>0</strong></td>
+                  			<td class="border-0 align-middle"><a href="RimozioneProdottoCarrello?id=<%=po.getProdotto().getId()%>"><button  type="submit" class="remove btn btn-warning"> <i class='fas fa-times'></i> Rimuovi dal carrello </button></a></td>
                 		</tr>
                 		
                 		<%
                 	
-                		prezzoTotale += (po.getProdottoIllustrato().getProdotto().getPrezzo()-po.getProdottoIllustrato().getProdotto().getPrezzo()*po.getProdottoIllustrato().getProdotto().getSconto()/100) * po.getQuantità();
+                		prezzoTotale += (po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100) * po.getQuantità();
                 		
                 		 }
                 		 %>

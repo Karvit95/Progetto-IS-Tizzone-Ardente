@@ -2,25 +2,25 @@ package model;
 
 public class ComposizioneConProdotto {
 	
-	private ProdottoConIllustrazione prodottoIllustrato;
+	private Prodotto prodotto;
 	private Composizione composizione;
 	
 	public ComposizioneConProdotto() {
 		
 	}
 	
-	public ComposizioneConProdotto(ProdottoConIllustrazione prodotto, Composizione composizione) {
+	public ComposizioneConProdotto(Prodotto prodotto, Composizione composizione) {
 		
-		this.prodottoIllustrato = prodotto;
+		this.prodotto = prodotto;
 		this.composizione = composizione;
 	}
 
-	public ProdottoConIllustrazione getProdottoIllustrato() {
-		return prodottoIllustrato;
+	public Prodotto getProdotto() {
+		return prodotto;
 	}
 
-	public void setProdottoIllustrato(ProdottoConIllustrazione prodotto) {
-		this.prodottoIllustrato = prodotto;
+	public void setProdotto(Prodotto prodotto) {
+		this.prodotto = prodotto;
 	}
 
 	public Composizione getComposizione() {

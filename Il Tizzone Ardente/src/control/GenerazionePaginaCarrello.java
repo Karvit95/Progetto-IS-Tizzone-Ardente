@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Carrello;
-import model.ProdottoConIllustrazione;
-import model.ProdottoConIllustrazioneDao;
+import model.Prodotto;
+import model.ProdottoDao;
 import model.ProdottoOrdinato;
 
 @WebServlet("/GenerazionePaginaCarrello")
@@ -22,9 +22,9 @@ public class GenerazionePaginaCarrello extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getSession().getAttribute("carrello") != null) {
-			ProdottoConIllustrazioneDao pDao = new ProdottoConIllustrazioneDao();
+			ProdottoDao prodottoDao = new ProdottoDao();
 			ProdottoOrdinato prodottoOrdinato;
-			ProdottoConIllustrazione p = new ProdottoConIllustrazione();
+			Prodotto p = new Prodotto();
 		
 			Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
 			ArrayList<ProdottoOrdinato> prodottiNelCarrello = carrello.getCarrello();
@@ -34,7 +34,7 @@ public class GenerazionePaginaCarrello extends HttpServlet {
 			
 				try {
 				
-					p = pDao.doRetrieveByKey(po.getProdottoIllustrato().getProdotto().getId());
+					p = prodottoDao.doRetrieveProdottiEIllustrazioneByKey(po.getProdotto().getId());
 			
 				} catch (SQLException e) {
 				

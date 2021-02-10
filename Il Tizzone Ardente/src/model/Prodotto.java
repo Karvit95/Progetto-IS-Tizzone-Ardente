@@ -6,16 +6,17 @@ public class Prodotto implements Serializable {
 	
 	private static final long serialVersionUID = 251079331519531454L;
 	
-	String id;
-	double peso;
-	String nome;
-	String modello;
-	String catalogo;
-	String materiale;
-	double prezzo;
-	int sconto;
-	String descrizione;
-	int quantità;
+	private String id;
+	private double peso;
+	private String nome;
+	private String modello;
+	private String catalogo;
+	private String materiale;
+	private double prezzo;
+	private int sconto;
+	private String descrizione;
+	private int quantità;
+	private String immagine;
 	
 	public Prodotto() {
 		
@@ -34,6 +35,23 @@ public class Prodotto implements Serializable {
 		this.descrizione = descrizione;
 		this.quantità = quantità;
 
+	}
+
+	
+	public Prodotto(String id, double peso, String nome, String modello, String catalogo, String materiale,
+			double prezzo, int sconto, String descrizione, int quantità, String immagine) {
+		
+		this.id = id;
+		this.peso = peso;
+		this.nome = nome;
+		this.modello = modello;
+		this.catalogo = catalogo;
+		this.materiale = materiale;
+		this.prezzo = prezzo;
+		this.sconto = sconto;
+		this.descrizione = descrizione;
+		this.quantità = quantità;
+		this.immagine = immagine;
 	}
 
 	public String getId() {
@@ -153,13 +171,22 @@ public class Prodotto implements Serializable {
 		this.quantità = quantità;
 	
 	}
-	
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
+	}
+
 	@Override
 	public String toString() {
 		return "Prodotto [id=" + id + ", peso=" + peso + ", nome=" + nome + ", modello=" + modello + ", catalogo="
 				+ catalogo + ", materiale=" + materiale + ", prezzo=" + prezzo + ", sconto=" + sconto + ", descrizione="
-				+ descrizione + ", quantità=" + quantità + "]";
+				+ descrizione + ", quantità=" + quantità + ", immagine=" + immagine + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -167,6 +194,7 @@ public class Prodotto implements Serializable {
 		result = prime * result + ((catalogo == null) ? 0 : catalogo.hashCode());
 		result = prime * result + ((descrizione == null) ? 0 : descrizione.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((immagine == null) ? 0 : immagine.hashCode());
 		result = prime * result + ((materiale == null) ? 0 : materiale.hashCode());
 		result = prime * result + ((modello == null) ? 0 : modello.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -203,6 +231,11 @@ public class Prodotto implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (immagine == null) {
+			if (other.immagine != null)
+				return false;
+		} else if (!immagine.equals(other.immagine))
 			return false;
 		if (materiale == null) {
 			if (other.materiale != null)

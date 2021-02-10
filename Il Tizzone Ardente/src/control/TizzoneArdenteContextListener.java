@@ -8,8 +8,8 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import model.DriverManagerConnectionPool;
-import model.ProdottoConIllustrazione;
-import model.ProdottoConIllustrazioneDao;
+import model.Prodotto;
+import model.ProdottoDao;
 
 @WebListener
 public class TizzoneArdenteContextListener implements ServletContextListener {
@@ -31,13 +31,13 @@ public class TizzoneArdenteContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce)  { 
        
-    	ProdottoConIllustrazioneDao pciDao = new ProdottoConIllustrazioneDao();
-		ArrayList<ProdottoConIllustrazione> listaProdotti = new ArrayList<ProdottoConIllustrazione>();
-		ArrayList<ProdottoConIllustrazione> listaProdottiScontati = new ArrayList<ProdottoConIllustrazione>();
+    	ProdottoDao prodottoDao = new ProdottoDao();
+		ArrayList<Prodotto> listaProdotti = new ArrayList<Prodotto>();
+		ArrayList<Prodotto> listaProdottiScontati = new ArrayList<Prodotto>();
 		
 		try {
 			
-			listaProdotti = pciDao.doRetrieve();
+			listaProdotti = prodottoDao.doRetrieveProdottiEIllustrazione();
 			
 		} catch (SQLException e) {
 			
@@ -45,10 +45,10 @@ public class TizzoneArdenteContextListener implements ServletContextListener {
 			
 		}
 		
-		for(ProdottoConIllustrazione pci: listaProdotti) {
+		for(Prodotto prodotto: listaProdotti) {
 			
-			if(pci.getProdotto().getSconto() != 0)
-				listaProdottiScontati.add(pci);
+			if(prodotto.getSconto() != 0)
+				listaProdottiScontati.add(prodotto);
 			
 		}
 		

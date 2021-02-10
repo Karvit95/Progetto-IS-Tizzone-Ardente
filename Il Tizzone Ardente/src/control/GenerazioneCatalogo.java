@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProdottoConIllustrazione;
-import model.ProdottoConIllustrazioneDao;
+import model.Prodotto;
+import model.ProdottoDao;
+
 
 @WebServlet("/GenerazioneCatalogo")
 public class GenerazioneCatalogo extends HttpServlet {
@@ -21,14 +22,14 @@ public class GenerazioneCatalogo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd;
-		ArrayList<ProdottoConIllustrazione> elencoProdotti = new ArrayList<ProdottoConIllustrazione>();
-		ProdottoConIllustrazioneDao pciDao = new ProdottoConIllustrazioneDao();
+		ArrayList<Prodotto> elencoProdotti = new ArrayList<Prodotto>();
+		ProdottoDao prodottoDao = new ProdottoDao();
 		
 		String nomeCatalogo = request.getParameter("nomeCatalogo");
 		
 		try{
 			
-			elencoProdotti = pciDao.doRetrieveByCatalogo(nomeCatalogo);
+			elencoProdotti = prodottoDao.doRetrieveByCatalogo(nomeCatalogo);
 			
 		}catch(SQLException e){
 			

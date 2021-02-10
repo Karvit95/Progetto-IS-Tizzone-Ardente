@@ -79,13 +79,13 @@
 					<tr>
             			<th scope="row" class="border-0">
                 			<div class="p-2">
-                    			<img src="<%=c.getProdottoIllustrato().getImmagine().getUrl()%>" alt="" width="70" class="img-fluid rounded shadow-sm">
+                    			<img src="<%=c.getProdotto().getImmagine()%>" alt="" width="70" class="img-fluid rounded shadow-sm">
                       			<div class="ml-3 d-inline-block align-middle">
-                        			<h5 class="mb-0"> <a href="GenerazionePaginaProdotto?id=<%=c.getProdottoIllustrato().getProdotto().getId()%>" class="text-dark d-inline-block align-middle"><%= c.getProdottoIllustrato().getProdotto().getNome()%></a></h5><span class="text-muted font-weight-normal font-italic d-block">Categoria: <%=c.getProdottoIllustrato().getProdotto().getCatalogo()%></span>
+                        			<h5 class="mb-0"> <a href="GenerazionePaginaProdotto?id=<%=c.getProdotto().getId()%>" class="text-dark d-inline-block align-middle"><%= c.getProdotto().getNome()%></a></h5><span class="text-muted font-weight-normal font-italic d-block">Categoria: <%=c.getProdotto().getCatalogo()%></span>
                       			</div>
                     		</div>
                   		</th>
-                  		<td class="border-0 align-middle"><strong><%=c.getComposizione().getIVA() %></strong></td>
+                  		<td class="border-0 align-middle"><strong><%=c.getComposizione().getIva() %></strong></td>
                   		<td class="border-0 align-middle"><strong><%=c.getComposizione().getQuantità() %></strong></td>
                   		<td class="border-0 align-middle"><strong><%=c.getComposizione().getPrezzoPagato()%>0</strong></td>
                 	</tr>

@@ -27,11 +27,11 @@ public class Carrello implements Serializable {
 		
 	}
 
-	public void aggiungiProdottoCarrello(ProdottoConIllustrazione p) {
+	public void aggiungiProdottoCarrello(Prodotto p) {
 		
 		for(ProdottoOrdinato lista: carrello) {
 			
-			if(lista.getProdottoIllustrato().getProdotto().getId().equals(p.getProdotto().getId())) {
+			if(lista.getProdotto().getId().equals(p.getId())) {
 				
 				lista.setQuantità(lista.getQuantità()+1);
 				return;
@@ -47,7 +47,7 @@ public class Carrello implements Serializable {
 		
 		for(int i = 0; i < carrello.size(); i++) {
 			
-			if(carrello.get(i).getProdottoIllustrato().getProdotto().getId().equals(id)) {
+			if(carrello.get(i).getProdotto().getId().equals(id)) {
 				
 				carrello.get(i).setQuantità(carrello.get(i).getQuantità()-1);
 				

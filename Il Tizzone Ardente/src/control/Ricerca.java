@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProdottoConIllustrazione;
-import model.ProdottoConIllustrazioneDao;
+import model.Prodotto;
+import model.ProdottoDao;
 
 @WebServlet("/Ricerca")
 public class Ricerca extends HttpServlet {
@@ -21,13 +21,13 @@ public class Ricerca extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String ricerca = request.getParameter("ricerca");
-		ArrayList<ProdottoConIllustrazione> risultatoRicerca = new ArrayList<ProdottoConIllustrazione>();
-		ProdottoConIllustrazioneDao pciDao = new ProdottoConIllustrazioneDao();
+		ArrayList<Prodotto> risultatoRicerca = new ArrayList<Prodotto>();
+		ProdottoDao prodottoDao = new ProdottoDao();
 		RequestDispatcher rd;
 		
 		try {
 			
-			risultatoRicerca = pciDao.doRetrieveByNome(ricerca);
+			risultatoRicerca = prodottoDao.ricerca(ricerca);
 			request.setAttribute("elenco", risultatoRicerca);
 			rd = request.getRequestDispatcher("elenco.jsp");
 			rd.forward(request, response);

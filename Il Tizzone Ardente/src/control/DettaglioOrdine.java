@@ -17,8 +17,8 @@ import model.ComposizioneDao;
 import model.Effettuato;
 import model.EffetuatoDao;
 import model.OrdineCompleto;
-import model.ProdottoConIllustrazione;
-import model.ProdottoConIllustrazioneDao;
+import model.Prodotto;
+import model.ProdottoDao;
 import model.Utente;
 import model.UtenteDao;
 
@@ -36,7 +36,7 @@ public class DettaglioOrdine extends HttpServlet {
 		ArrayList<Composizione> c = new ArrayList<Composizione>();
 		OrdineCompleto oc;
 		Utente u = new Utente();
-		ProdottoConIllustrazione p;
+		Prodotto p;
 		ComposizioneConProdotto cp;
 		ArrayList<ComposizioneConProdotto> listaCp = new ArrayList<ComposizioneConProdotto>();
 		double prezzoTotale = 0;
@@ -44,7 +44,7 @@ public class DettaglioOrdine extends HttpServlet {
 		EffetuatoDao eDao = new EffetuatoDao();
 		ComposizioneDao cDao = new ComposizioneDao();
 		UtenteDao uDao = new UtenteDao();
-		ProdottoConIllustrazioneDao pDao = new ProdottoConIllustrazioneDao();
+		ProdottoDao pDao = new ProdottoDao();
 		
 		try {
 			
@@ -62,7 +62,7 @@ public class DettaglioOrdine extends HttpServlet {
 			
 			try {
 				
-				p = pDao.doRetrieveByKey(comp.getIDProdotto());
+				p = pDao.doRetrieveByKey(comp.getIdProdotto());
 				cp = new ComposizioneConProdotto(p, comp);
 				listaCp.add(cp);
 				

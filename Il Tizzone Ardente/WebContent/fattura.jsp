@@ -81,13 +81,13 @@
 						<% 
 						double prezzoTotale = 0;
 						for(ProdottoOrdinato po: prodottiNelCarrello){ 
-							prezzoTotale += (po.getProdottoIllustrato().getProdotto().getPrezzo() - po.getProdottoIllustrato().getProdotto().getPrezzo() * po.getProdottoIllustrato().getProdotto().getSconto()/100) * po.getQuantità();
+							prezzoTotale += (po.getProdotto().getPrezzo() - po.getProdotto().getPrezzo() * po.getProdotto().getSconto()/100) * po.getQuantità();
 						%>
 						<tr>
-							<td class="border-0 align-middle"><strong><%=po.getProdottoIllustrato().getProdotto().getNome()%></strong></td>
-                  			<td class="border-0 align-middle"><strong><%=po.getProdottoIllustrato().getProdotto().getPrezzo()-po.getProdottoIllustrato().getProdotto().getPrezzo()*po.getProdottoIllustrato().getProdotto().getSconto()/100%>0€</strong></td>
+							<td class="border-0 align-middle"><strong><%=po.getProdotto().getNome()%></strong></td>
+                  			<td class="border-0 align-middle"><strong><%=po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100%>0€</strong></td>
                   			<td class="border-0 align-middle"><strong><%=po.getQuantità()%></strong></td>
-                  			<td class="border-0 align-middle"><strong><%=(po.getProdottoIllustrato().getProdotto().getPrezzo()-po.getProdottoIllustrato().getProdotto().getPrezzo()*po.getProdottoIllustrato().getProdotto().getSconto()/100) * po.getQuantità()%>0€</strong></td>
+                  			<td class="border-0 align-middle"><strong><%=(po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100) * po.getQuantità()%>0€</strong></td>
 						</tr>
 						<%} %>
 						<tr>
