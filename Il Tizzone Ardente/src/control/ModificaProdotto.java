@@ -27,6 +27,7 @@ public class ModificaProdotto extends HttpServlet {
 		
 		switch(sceltaModifica) {
 			
+			//modifica prezzo
 			case 0: 
 				
 				idProdotto = request.getParameter("idModificaPrezzoProdotto");
@@ -44,6 +45,7 @@ public class ModificaProdotto extends HttpServlet {
 				
 				}
 				
+				//controlla se il cambio prezzo è riuscito
 				if(risultatoModificaProdotto) {
 					
 					request.setAttribute("cambioPrezzoRiuscito", "OK");
@@ -61,7 +63,8 @@ public class ModificaProdotto extends HttpServlet {
 				}
 					
 				break;
-				
+			
+			//modifica lo sconto
 			case 1: 
 				
 				idProdotto = request.getParameter("idModificaScontoProdotto");
@@ -79,6 +82,7 @@ public class ModificaProdotto extends HttpServlet {
 				
 				}
 				
+				//controlla se il cambio sconto è riuscito
 				if(risultatoModificaProdotto) {
 					
 					request.setAttribute("cambioScontoRiuscito", "OK");
@@ -96,7 +100,8 @@ public class ModificaProdotto extends HttpServlet {
 				}
 					
 				break;
-				
+			
+			//modifica quantità
 			case 2: 
 				
 				idProdotto = request.getParameter("idModificaQuantitaProdotto");
@@ -114,6 +119,8 @@ public class ModificaProdotto extends HttpServlet {
 				
 				}
 				
+				
+				//controlla se il cambio quantità è riuscito
 				if(risultatoModificaProdotto) {
 					
 					request.setAttribute("cambioQuantitaRiuscito", "OK");

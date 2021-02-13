@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.time.LocalDate" import="java.util.ArrayList" import="model.ProdottoOrdinato" import="model.Utente" import="model.Carrello" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.time.LocalDate" import="java.util.ArrayList" import="model.ProdottoNelCarrello" import="model.Utente" import="model.Carrello" %>
 <!DOCTYPE html>
 
 <html>
@@ -19,41 +19,40 @@
 
 	<%
 		if(request.getSession().getAttribute("codiceFattura") == null){
-		
-			request.setAttribute("avviso", "avviso");
-			RequestDispatcher rd = request.getRequestDispatcher("carrello.jsp");
-			rd.forward(request, response);
-		
-		}else{
-		
-		String codiceFattura = (String) request.getSession().getAttribute("codiceFattura");
-		LocalDate dataAcquisto = (LocalDate) request.getSession().getAttribute("dataAcquisto");
-		Utente utenteFattura = (Utente) request.getSession().getAttribute("utente");
-		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
-		ArrayList<ProdottoOrdinato> prodottiNelCarrello = carrello.getCarrello();
-	
-	 %>
+			
+		request.setAttribute("avviso", "avviso");
+		RequestDispatcher rd = request.getRequestDispatcher("carrello.jsp");
+		rd.forward(request, response);
+			
+			}else{
+			
+			String codiceFattura = (String) request.getSession().getAttribute("codiceFattura");
+			LocalDate dataAcquisto = (LocalDate) request.getSession().getAttribute("dataAcquisto");
+			Utente utenteFattura = (Utente) request.getSession().getAttribute("utente");
+			Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
+			ArrayList<ProdottoNelCarrello> prodottiNelCarrello = carrello.getCarrello();
+	%>
 	<body>
 		
 		<%@ include file = "elements/header.jsp" %>
 		<%@ include file = "elements/navbar.jsp" %>
 		
-		<% if(utente == null){
-				
-			request.setAttribute("avviso", "avviso");
-			RequestDispatcher rd = request.getRequestDispatcher("carrello.jsp");
-			rd.forward(request, response);
-			
-			}
-			
-		 %>
+		<%
+					if(utente == null){
+						
+					request.setAttribute("avviso", "avviso");
+					RequestDispatcher rd = request.getRequestDispatcher("carrello.jsp");
+					rd.forward(request, response);
+					
+					}
+				%>
 		
 		<div class="container">		
 			<div class="cornice-fattura table-responsive">
     			<table class="table table-sm">
     				<tr>
     					<td class="border-0 align-middle"><img class="immagine-fattura" src="images/tizzone-ardente-logo-2.jpg"></td>
-    					<td class="border-0 align-middle"><strong>Fattura: <%=codiceFattura%><br> In data: <%=dataAcquisto %></strong></td>
+    					<td class="border-0 align-middle"><strong>Fattura: <%=codiceFattura%><br> In data: <%=dataAcquisto%></strong></td>
     				</tr>
     				<tr>
     					<td class="border-0 align-middle">Il Tizzone Ardente<br> Università degli studi di Salerno <br> Via Giovanni Paolo II, 132 - 84084 Fisciano (SA)</td>
@@ -78,11 +77,11 @@
                   				</th>
                 			</tr>
 						</thead>				
-						<% 
-						double prezzoTotale = 0;
-						for(ProdottoOrdinato po: prodottiNelCarrello){ 
-							prezzoTotale += (po.getProdotto().getPrezzo() - po.getProdotto().getPrezzo() * po.getProdotto().getSconto()/100) * po.getQuantità();
-						%>
+						<%
+											double prezzoTotale = 0;
+														for(ProdottoNelCarrello po: prodottiNelCarrello){ 
+															prezzoTotale += (po.getProdotto().getPrezzo() - po.getProdotto().getPrezzo() * po.getProdotto().getSconto()/100) * po.getQuantità();
+										%>
 						<tr>
 							<td class="border-0 align-middle"><strong><%=po.getProdotto().getNome()%></strong></td>
                   			<td class="border-0 align-middle"><strong><%=po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100%>0€</strong></td>

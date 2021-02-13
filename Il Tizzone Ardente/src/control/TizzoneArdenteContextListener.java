@@ -31,6 +31,7 @@ public class TizzoneArdenteContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce)  { 
        
+    	//Inizializza la galleria delle immagini
     	ProdottoDao prodottoDao = new ProdottoDao();
 		ArrayList<Prodotto> listaProdotti = new ArrayList<Prodotto>();
 		ArrayList<Prodotto> listaProdottiScontati = new ArrayList<Prodotto>();

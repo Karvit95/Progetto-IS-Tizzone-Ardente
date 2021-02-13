@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Carrello;
 import model.Prodotto;
 import model.ProdottoDao;
-import model.ProdottoOrdinato;
+import model.ProdottoNelCarrello;
 
 @WebServlet("/GenerazionePaginaCarrello")
 public class GenerazionePaginaCarrello extends HttpServlet {
@@ -21,28 +21,31 @@ public class GenerazionePaginaCarrello extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//Se il carrello è vuoto non esegue queste operazioni e va direttamente alla pagina del carrello che visualizzerà un messaggio che informa l'utente che il carrello è vuoto
 		if(request.getSession().getAttribute("carrello") != null) {
 			ProdottoDao prodottoDao = new ProdottoDao();
-			ProdottoOrdinato prodottoOrdinato;
-			Prodotto p = new Prodotto();
+			ProdottoNelCarrello prodottoNelCarrello;
+			Prodotto prodotto = new Prodotto();
 		
 			Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
-			ArrayList<ProdottoOrdinato> prodottiNelCarrello = carrello.getCarrello();
-			ArrayList<ProdottoOrdinato> prodottiAggiornati = new ArrayList<ProdottoOrdinato>();
+			ArrayList<ProdottoNelCarrello> prodottiNelCarrello = carrello.getCarrello();
+			ArrayList<ProdottoNelCarrello> prodottiAggiornati = new ArrayList<ProdottoNelCarrello>();
 		
-			for(ProdottoOrdinato po: prodottiNelCarrello) {
+			for(ProdottoNelCarrello po: prodottiNelCarrello) {
 			
+				//Mentre che l'utente naviga sul sito, un prodotto potrebbe essere stato modificato (esempio prezzo, sconto),
+				// quindi ci si assicura che il prodotto sia correttamente aggiornato anche nel carrello 
 				try {
 				
-					p = prodottoDao.doRetrieveProdottiEIllustrazioneByKey(po.getProdotto().getId());
+					prodotto = prodottoDao.doRetrieveProdottiEIllustrazioneByKey(po.getProdotto().getId());
 			
 				} catch (SQLException e) {
 				
 					e.printStackTrace();
 				}
 			
-				prodottoOrdinato = new ProdottoOrdinato(p, po.getQuantità());
-				prodottiAggiornati.add(prodottoOrdinato);
+				prodottoNelCarrello = new ProdottoNelCarrello(prodotto, po.getQuantità());
+				prodottiAggiornati.add(prodottoNelCarrello);
 			}
 		
 			carrello.setCarrello(prodottiAggiornati);

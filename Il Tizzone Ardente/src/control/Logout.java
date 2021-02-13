@@ -13,6 +13,7 @@ public class Logout extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//disconnette l'utente
 		request.getSession().removeAttribute("utente");
 		request.getSession().invalidate();
 		

@@ -20,7 +20,7 @@ public class InserimentoNelCarrello extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Gson gson = new Gson();
-		Prodotto p = gson.fromJson(request.getParameter("prodottoJson"), Prodotto.class);
+		Prodotto prodotto = gson.fromJson(request.getParameter("prodottoJson"), Prodotto.class);
 		
 		HttpSession session = request.getSession();
 		Carrello carrello;
@@ -29,6 +29,7 @@ public class InserimentoNelCarrello extends HttpServlet {
 			
 			carrello = (Carrello)session.getAttribute("carrello");
 			
+			//Se non esiste, crea un nuovo carrello
 			if(carrello == null) {
 				
 				carrello = new Carrello();
@@ -37,7 +38,7 @@ public class InserimentoNelCarrello extends HttpServlet {
 			}
 		}
 		
-		carrello.aggiungiProdottoCarrello(p);
+		carrello.aggiungiProdottoCarrello(prodotto);
 		session.setAttribute("carrello", carrello );
 
 	}

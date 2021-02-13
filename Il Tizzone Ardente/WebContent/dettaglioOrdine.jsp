@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList" import="model.OrdineCompleto" import="model.ComposizioneConProdotto" import="model.Utente" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList" import="model.DettagliOrdine" import="model.ProdottoAcquistato" import="model.Utente" %>
 <!DOCTYPE html>
 
 <html>
@@ -18,8 +18,10 @@
 		
 	</head>	
 	
-	<% OrdineCompleto dettagliOrdine = (OrdineCompleto) request.getAttribute("dettagliOrdine");
-	   Utente utenteOrdine = (Utente) request.getAttribute("utente"); %>
+	<%
+				DettagliOrdine dettagliOrdine = (DettagliOrdine) request.getAttribute("dettagliOrdine");
+						   Utente utenteOrdine = (Utente) request.getAttribute("utente");
+			%>
 
 	<body>
 	
@@ -49,8 +51,8 @@
                 		</tr>
 					</thead>
 						<tr>
-							<td class="border-0 align-middle"><strong><%=dettagliOrdine.getCodiceFattura() %></strong></td>
-                  			<td class="border-0 align-middle"><strong><%=dettagliOrdine.getDataDiAcquisto() %></strong></td>
+							<td class="border-0 align-middle"><strong><%=dettagliOrdine.getCodiceFattura()%></strong></td>
+                  			<td class="border-0 align-middle"><strong><%=dettagliOrdine.getDataDiAcquisto()%></strong></td>
                   			<td class="border-0 align-middle"><strong><%=utenteOrdine.getNome()%></strong></td>
                   			<td class="border-0 align-middle"><strong><%=utenteOrdine.getCognome()%></strong></td>
                   			<td class="border-0 align-middle"><strong><%=utenteOrdine.getEmail()%></strong></td>
@@ -75,7 +77,9 @@
                   			</th>
                 		</tr>
 					</thead>
-					<% for (ComposizioneConProdotto c: dettagliOrdine.getProdottiAcquistati()) { %>
+					<%
+						for (ProdottoAcquistato c: dettagliOrdine.getProdottiAcquistati()) {
+					%>
 					<tr>
             			<th scope="row" class="border-0">
                 			<div class="p-2">

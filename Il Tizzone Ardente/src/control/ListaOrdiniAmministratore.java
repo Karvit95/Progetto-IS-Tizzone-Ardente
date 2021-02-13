@@ -27,14 +27,14 @@ public class ListaOrdiniAmministratore extends HttpServlet {
 		LocalDate dataFine;
 		String persona;
 		
-		EffetuatoDao eDao = new EffetuatoDao();
+		EffetuatoDao effettuatoDao = new EffetuatoDao();
 		
 		ArrayList<Effettuato> listaOrdini = new ArrayList<Effettuato>();
-		ArrayList<Effettuato> listaAppoggio = new ArrayList<Effettuato>();;
+		ArrayList<Effettuato> listaTemp = new ArrayList<Effettuato>();;
 		
 		try {
 			
-			listaOrdini = eDao.doRetrieve();
+			listaOrdini = effettuatoDao.doRetrieve();
 			
 		} catch (SQLException e) {
 			
@@ -42,6 +42,7 @@ public class ListaOrdiniAmministratore extends HttpServlet {
 			
 		}
 		
+		//Recupera dal db tutti gli ordini compresi con data compresa tra "dataInizio" e "dataFine"
 		if((request.getParameter("dataInizio") != null) && (request.getParameter("dataFine") != null) && !(request.getParameter("dataInizio").equals("")) && !(request.getParameter("dataFine").equals(""))) {
 
 			
@@ -52,16 +53,16 @@ public class ListaOrdiniAmministratore extends HttpServlet {
 				
 				if(e.getDataAcquisto().isBefore(dataInizio) || e.getDataAcquisto().isAfter(dataFine)) {
 					
-					listaAppoggio.add(e);
+					listaTemp.add(e);
 					
 				}
 			}
 			
-			listaOrdini.removeAll(listaAppoggio);
-			listaAppoggio.clear();
+			listaOrdini.removeAll(listaTemp);
+			listaTemp.clear();
 		}
 		
-		
+		//recupera gli ordini che sono stati effettuati da un utente
 		if((request.getParameter("persona")!= null) && !(request.getParameter("persona").equals(""))) {
 			
 			persona = request.getParameter("persona");
@@ -70,15 +71,16 @@ public class ListaOrdiniAmministratore extends HttpServlet {
 				
 				if(!(e.getEmail().equals(persona))) {
 				
-					listaAppoggio.add(e);
+					listaTemp.add(e);
 					
 				}
 			}
 			
-			listaOrdini.removeAll(listaAppoggio);
-			listaAppoggio.clear();
+			listaOrdini.removeAll(listaTemp);
+			listaTemp.clear();
 		}
 		
+		//Invia la lista degli ordini trovati al front-end
 		request.setAttribute("ordini", listaOrdini);
 		rd = request.getRequestDispatcher("visualizzaOrdiniAmministratore.jsp");
 		rd.forward(request, response);

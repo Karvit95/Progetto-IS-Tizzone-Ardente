@@ -23,6 +23,7 @@ public class InserimentoProdotto extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//Utilizzata per creare un id casuale per il prodotto
 		final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		
 		Prodotto prodotto;
@@ -32,6 +33,7 @@ public class InserimentoProdotto extends HttpServlet {
 		
 		RequestDispatcher rd;
 		
+		//i dati del prodotto 
 		String id;
 		String nome = request.getParameter("nome");
 		String modello = request.getParameter("modello");
@@ -40,8 +42,9 @@ public class InserimentoProdotto extends HttpServlet {
 		double peso = Double.parseDouble(request.getParameter("peso"));
 		double prezzo = Double.parseDouble(request.getParameter("prezzo"));
 		String descrizione = request.getParameter("descrizione");
-		String url = request.getParameter("immagine");
+		String immagine = request.getParameter("immagine");
 		
+		//genera l'id del prodotto
 		int count = 10;
 		StringBuilder builder = new StringBuilder();
 		while (count-- != 0) {
@@ -55,9 +58,10 @@ public class InserimentoProdotto extends HttpServlet {
 		
 		try{
 			
+			//Inserisce il prodotto nel database
 			prodotto = new Prodotto(id, peso, nome, modello, catalogo, materiale, prezzo, 0, descrizione, 0);
 			pDao.doSave(prodotto);
-			illustrazione = new Illustrazione (id, url);
+			illustrazione = new Illustrazione (id, immagine);
 			iDao.doSave(illustrazione);
 			request.setAttribute("inserimentoRiuscito", "successo");
 			rd = request.getRequestDispatcher("areaAmministratore.jsp");

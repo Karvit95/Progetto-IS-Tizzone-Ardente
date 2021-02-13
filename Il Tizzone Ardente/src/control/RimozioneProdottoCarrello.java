@@ -23,6 +23,7 @@ public class RimozioneProdottoCarrello extends HttpServlet {
 		
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
 		
+		//rimuove il prodotto dal carrello e aggiorna la sessione
 		carrello.rimuoviProdottoCarrello(id);
 		
 		session.setAttribute("carrello", carrello );

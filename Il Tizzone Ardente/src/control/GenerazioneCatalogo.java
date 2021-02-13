@@ -29,6 +29,7 @@ public class GenerazioneCatalogo extends HttpServlet {
 		
 		try{
 			
+			//Recupera dal db i prodotti che fanno parte del catalogo specificato
 			elencoProdotti = prodottoDao.doRetrieveByCatalogo(nomeCatalogo);
 			
 		}catch(SQLException e){
@@ -39,6 +40,7 @@ public class GenerazioneCatalogo extends HttpServlet {
 			
 		}
 		
+		//Invia i dati al front end, in modo da poter visualizzare i prodotti
 		request.setAttribute("elenco", elencoProdotti);
 		rd = request.getRequestDispatcher("elenco.jsp");
 		rd.forward(request, response);

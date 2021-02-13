@@ -22,16 +22,20 @@ public class EliminazioneProdotto extends HttpServlet {
 		
 		RequestDispatcher rd; 
 		
-		ProdottoDao pDao = new ProdottoDao();
-		IllustrazioneDao iDao = new IllustrazioneDao();
+		ProdottoDao prodottoDao = new ProdottoDao();
+		IllustrazioneDao illustrazioneDao = new IllustrazioneDao();
 		
+		//l'id del prodotto è necessario per identificare univocamente il prodotto che si desidera eliminare dal sito
 		String id = request.getParameter("idProdotto");
+		
+		//Il risultato dell'operazione di cancellazione che dovrà essere visualizzato dall'amministratore
 		boolean risultatoCancellazione = false;
 		
 		try{
 			
-			iDao.doDelete(id);
-			risultatoCancellazione = pDao.doDelete(id);
+			//Elimina il prodotto dal db, prima elimina la sua illustrazione e poi il prodotto vero e proprio
+			illustrazioneDao.doDelete(id);
+			risultatoCancellazione = prodottoDao.doDelete(id);
 			
 		}catch(SQLIntegrityConstraintViolationException e){
 			
@@ -47,6 +51,7 @@ public class EliminazioneProdotto extends HttpServlet {
 			
 		}
 		
+		//Controlla se l'eliminazione del prodotto è andata a buon fine inviando un messaggio adatto al front end
 		if(risultatoCancellazione) {
 		
 			request.setAttribute("eliminazioneRiuscita", "OK");

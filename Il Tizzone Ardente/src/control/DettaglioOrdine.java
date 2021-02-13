@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Composizione;
-import model.ComposizioneConProdotto;
+import model.ProdottoAcquistato;
 import model.ComposizioneDao;
 import model.Effettuato;
 import model.EffetuatoDao;
-import model.OrdineCompleto;
+import model.DettagliOrdine;
 import model.Prodotto;
 import model.ProdottoDao;
 import model.Utente;
@@ -30,27 +30,29 @@ public class DettaglioOrdine extends HttpServlet {
 
 		RequestDispatcher rd;
 		
+		//Codice fattura è necessatio per generare l'oggetto che rappresenta il dettallio dell'ordine
 		String codiceFattura = request.getParameter("fattura");
 		
-		Effettuato ef = new Effettuato();
-		ArrayList<Composizione> c = new ArrayList<Composizione>();
-		OrdineCompleto oc;
-		Utente u = new Utente();
-		Prodotto p;
-		ComposizioneConProdotto cp;
-		ArrayList<ComposizioneConProdotto> listaCp = new ArrayList<ComposizioneConProdotto>();
+		Effettuato effettuato = new Effettuato();
+		ArrayList<Composizione> listaComposizione = new ArrayList<Composizione>();
+		DettagliOrdine dettagliOrdine;
+		Utente utente = new Utente();
+		Prodotto prodotto;
+		ProdottoAcquistato prodottoAcquistato;
+		ArrayList<ProdottoAcquistato> listaProdottiAcquistati = new ArrayList<ProdottoAcquistato>();
 		double prezzoTotale = 0;
 		
-		EffetuatoDao eDao = new EffetuatoDao();
-		ComposizioneDao cDao = new ComposizioneDao();
-		UtenteDao uDao = new UtenteDao();
-		ProdottoDao pDao = new ProdottoDao();
+		EffetuatoDao effettuatoDao = new EffetuatoDao();
+		ComposizioneDao composizioneDao = new ComposizioneDao();
+		UtenteDao utenteDao = new UtenteDao();
+		ProdottoDao prodottoDao = new ProdottoDao();
 		
 		try {
 			
-			ef = eDao.doRetrieveByKey(codiceFattura);
-			c = cDao.doRetrieveByKey(codiceFattura);
-			u = uDao.doRetrieveByKey(ef.getEmail());
+			//Recupera dal db i dati relativi all'ordine effettuato da un utente con specificato un codice fattura
+			effettuato = effettuatoDao.doRetrieveByKey(codiceFattura);
+			listaComposizione = composizioneDao.doRetrieveByKey(codiceFattura);
+			utente = utenteDao.doRetrieveByKey(effettuato.getEmail());
 		
 		} catch (SQLException e) {
 			
@@ -58,26 +60,32 @@ public class DettaglioOrdine extends HttpServlet {
 		
 		}
 		
-		for(Composizione comp: c) {
+		//Recupera le informazioni sui prodotti acquistati nell'ordine
+		for(Composizione composizione: listaComposizione) {
 			
 			try {
 				
-				p = pDao.doRetrieveByKey(comp.getIdProdotto());
-				cp = new ComposizioneConProdotto(p, comp);
-				listaCp.add(cp);
+				prodotto = prodottoDao.doRetrieveProdottiEIllustrazioneByKey(composizione.getIdProdotto());
+				prodottoAcquistato = new ProdottoAcquistato(prodotto, composizione);
+				listaProdottiAcquistati.add(prodottoAcquistato);
 				
 			} catch (SQLException e) {
 	
 				e.printStackTrace();
+			
 			}
-			prezzoTotale += comp.getPrezzoPagato();
+			
+			// calcola il prezzo totale che è stato pagato
+			prezzoTotale += composizione.getPrezzoPagato();
 			
 		}	
 		
-		oc = new OrdineCompleto(codiceFattura, ef.getEmail(), ef.getDataAcquisto(), listaCp, prezzoTotale);
+		//Genera l'oggetto che rappresenta il dettaglio dell'ordine
+		dettagliOrdine = new DettagliOrdine(codiceFattura, effettuato.getEmail(), effettuato.getDataAcquisto(), listaProdottiAcquistati, prezzoTotale);
 		
-		request.setAttribute("dettagliOrdine", oc);
-		request.setAttribute("utente", u);
+		//Invia i dati al front-end che visualizza il dettaglio dell'ordine
+		request.setAttribute("dettagliOrdine", dettagliOrdine);
+		request.setAttribute("utente", utente);
 		rd = request.getRequestDispatcher("dettaglioOrdine.jsp");
 		rd.forward(request, response);
 		

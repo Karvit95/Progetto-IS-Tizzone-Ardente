@@ -23,22 +23,23 @@ public class GenerazionePaginaProdotto extends HttpServlet {
 		
 		RequestDispatcher rd;
 		
-		IllustrazioneDao iDao = new IllustrazioneDao();
-		Illustrazione i = new Illustrazione();
+		IllustrazioneDao illustrazioneDao = new IllustrazioneDao();
+		Illustrazione illustrazione = new Illustrazione();
 		
-		ProdottoDao pDao = new ProdottoDao();
-		Prodotto p = new Prodotto();
+		ProdottoDao prodottoDao = new ProdottoDao();
+		Prodotto prodotto = new Prodotto();
 		
 		
-		String id = request.getParameter("id");
+		String idProdotto = request.getParameter("id");
 		
 		try {
 			
-			p = pDao.doRetrieveByKey(id);
-			i = iDao.doRetrieveByKey(id);
+			//Recupera dal db il prodotto e la sua immagine
+			prodotto = prodottoDao.doRetrieveByKey(idProdotto);
+			illustrazione = illustrazioneDao.doRetrieveByKey(idProdotto);
 			
-			request.setAttribute("immagine", i);
-			request.setAttribute("prodotto", p);
+			request.setAttribute("immagine", illustrazione);
+			request.setAttribute("prodotto", prodotto);
 			rd = request.getRequestDispatcher("prodotto.jsp");
 			rd.forward(request, response);
 			

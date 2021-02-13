@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="model.Carrello" import="java.util.ArrayList" import="model.ProdottoOrdinato"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="model.Carrello" import="java.util.ArrayList" import="model.ProdottoNelCarrello"%>
 <!DOCTYPE html>
 
 <html>
@@ -23,24 +23,27 @@
 	<%@ include file = "elements/header.jsp" %>
 	<%@ include file = "elements/navbar.jsp" %>
 	
-	<%	
-		Carrello carrello;
-		ArrayList<ProdottoOrdinato> prodottiNelCarrello = new ArrayList<ProdottoOrdinato>();
-		double prezzoTotale = 0;
-		
-		if(request.getSession().getAttribute("carrello") != null){
+	<%
+			Carrello carrello;
+				ArrayList<ProdottoNelCarrello> prodottiNelCarrello = new ArrayList<ProdottoNelCarrello>();
+				double prezzoTotale = 0;
+				
+				if(request.getSession().getAttribute("carrello") != null){
 			carrello = (Carrello) request.getSession().getAttribute("carrello");
 			prodottiNelCarrello = carrello.getCarrello();
-		}
-		
-		if((request.getSession().getAttribute("carrello") == null) || prodottiNelCarrello.isEmpty()){ %>
+				}
+				
+				if((request.getSession().getAttribute("carrello") == null) || prodottiNelCarrello.isEmpty()){
+		%>
 		
 			<h2> Il tuo carrello è vuoto. </h2>
 			<p>	Il tuo carrello è vuoto. Per aggiungere articoli al tuo carrello naviga su <a href="home.jsp"> Il Tizzone Ardente </a>, e quando trovi un articolo che ti interessa clicca su "Aggiungi al carrello". </p>
 			<p> Continua a fare acquisti sul sito web Il tizzone ardente, scopri i nostri prodotti.</p>
 			<p> I prezzi degli articoli nel tuo carrello riflettono sempre il prezzo più recente visualizzato sulle relative pagine prodotto. </p>
 		
-	<% 	}else{ %>
+	<%
+				}else{
+			%>
  	
  		<div class="container">
 		<h2> Carrello </h2>
@@ -67,7 +70,9 @@
                 		</tr>
 					</thead>
  					<tbody>
- 						<% for(ProdottoOrdinato po: prodottiNelCarrello){ %>
+ 						<%
+ 							for(ProdottoNelCarrello po: prodottiNelCarrello){
+ 						%>
             			<tr>
             				<th scope="row" class="border-0">
                 				<div class="p-2">

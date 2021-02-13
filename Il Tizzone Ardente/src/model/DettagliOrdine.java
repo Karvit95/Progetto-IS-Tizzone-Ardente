@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OrdineCompleto implements Serializable{
+public class DettagliOrdine implements Serializable{
 
 	private static final long serialVersionUID = -6692302511326748966L;
 	
 	private String CodiceFattura;
 	private String email;
 	private LocalDate dataDiAcquisto;
-	private ArrayList<ComposizioneConProdotto> prodottiAcquistati;
+	private ArrayList<ProdottoAcquistato> prodottiAcquistati;
 	private double prezzoTotale;
 	
-	public OrdineCompleto() {
+	public DettagliOrdine() {
 		
 	}
 	
-	public OrdineCompleto(String codiceFattura, String email, LocalDate dataDiAcquisto, ArrayList<ComposizioneConProdotto> prodottiAcquistati, double prezzoTotale) {
+	public DettagliOrdine(String codiceFattura, String email, LocalDate dataDiAcquisto, ArrayList<ProdottoAcquistato> prodottiAcquistati, double prezzoTotale) {
 		
 		CodiceFattura = codiceFattura;
 		this.email = email;
@@ -64,13 +64,13 @@ public class OrdineCompleto implements Serializable{
 	
 	}
 
-	public ArrayList<ComposizioneConProdotto> getProdottiAcquistati() {
+	public ArrayList<ProdottoAcquistato> getProdottiAcquistati() {
 	
 		return prodottiAcquistati;
 
 	}
 
-	public void setProdottiAcquistati(ArrayList<ComposizioneConProdotto> prodottiAcquistati) {
+	public void setProdottiAcquistati(ArrayList<ProdottoAcquistato> prodottiAcquistati) {
 		
 		this.prodottiAcquistati = prodottiAcquistati;
 	

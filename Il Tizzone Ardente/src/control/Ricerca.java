@@ -27,6 +27,7 @@ public class Ricerca extends HttpServlet {
 		
 		try {
 			
+			//Recupera dal db i prodotti cercati dall'utente
 			risultatoRicerca = prodottoDao.ricerca(ricerca);
 			request.setAttribute("elenco", risultatoRicerca);
 			rd = request.getRequestDispatcher("elenco.jsp");

@@ -7,21 +7,21 @@ public class Carrello implements Serializable {
 	
 	private static final long serialVersionUID = -6589565584929262633L;
 	
-	private ArrayList<ProdottoOrdinato> carrello;
+	private ArrayList<ProdottoNelCarrello> carrello;
   
 	public Carrello() {
 	  
-		carrello = new ArrayList<ProdottoOrdinato>();
+		carrello = new ArrayList<ProdottoNelCarrello>();
 	  
 	}
  
-	public ArrayList<ProdottoOrdinato> getCarrello() {
+	public ArrayList<ProdottoNelCarrello> getCarrello() {
 	  
 		return carrello;
     
 	}
 
-	public void setCarrello(ArrayList<ProdottoOrdinato> carrello) {
+	public void setCarrello(ArrayList<ProdottoNelCarrello> carrello) {
 		
 		this.carrello = carrello;
 		
@@ -29,7 +29,7 @@ public class Carrello implements Serializable {
 
 	public void aggiungiProdottoCarrello(Prodotto p) {
 		
-		for(ProdottoOrdinato lista: carrello) {
+		for(ProdottoNelCarrello lista: carrello) {
 			
 			if(lista.getProdotto().getId().equals(p.getId())) {
 				
@@ -38,7 +38,7 @@ public class Carrello implements Serializable {
 			}	
 		}
 		
-		ProdottoOrdinato po = new ProdottoOrdinato(p, 1);
+		ProdottoNelCarrello po = new ProdottoNelCarrello(p, 1);
 		carrello.add(po);
 	
 	}

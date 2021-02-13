@@ -22,8 +22,8 @@ public class Registrazione extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		UtenteDao uDao = new UtenteDao();
-		IndirizzoUtenteDao iuDao = new IndirizzoUtenteDao();
+		UtenteDao utenteDao = new UtenteDao();
+		IndirizzoUtenteDao indirizzoUtenteDao = new IndirizzoUtenteDao();
 		
 		RequestDispatcher rd;
 		
@@ -43,8 +43,9 @@ public class Registrazione extends HttpServlet {
 		
 		try{
 			
-			uDao.doSave(utente);
-			iuDao.doSave(indirizzoUtente);
+			//Inserisce nel db i dati
+			utenteDao.doSave(utente);
+			indirizzoUtenteDao.doSave(indirizzoUtente);
 		
 		}catch(SQLIntegrityConstraintViolationException e){
 			

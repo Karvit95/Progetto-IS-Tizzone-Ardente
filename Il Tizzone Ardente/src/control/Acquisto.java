@@ -20,7 +20,7 @@ import model.IndirizzoOrdine;
 import model.IndirizzoOrdineDao;
 import model.Ordine;
 import model.OrdineDao;
-import model.ProdottoOrdinato;
+import model.ProdottoNelCarrello;
 import model.Utente;
 
 @WebServlet("/Acquisto")
@@ -29,32 +29,34 @@ public class Acquisto extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Dati necessari per effettuare un acquisto
 		String codiceFattura = (String) request.getSession().getAttribute("codiceFattura");
 		LocalDate dataAcquisto = (LocalDate) request.getSession().getAttribute("dataAcquisto");
 		Utente utente = (Utente) request.getSession().getAttribute("utente");
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
-		ArrayList<ProdottoOrdinato> prodottiNelCarrello = carrello.getCarrello();
+		ArrayList<ProdottoNelCarrello> prodottiNelCarrello = carrello.getCarrello();
 		IndirizzoOrdine indirizzoOrdine = (IndirizzoOrdine) request.getSession().getAttribute("indirizzoOrdine");
 		
-		Ordine o = new Ordine(codiceFattura);
-		OrdineDao oDao = new OrdineDao();
+		Ordine ordine = new Ordine(codiceFattura);
+		OrdineDao ordineDao = new OrdineDao();
 		
-		Effettuato ef = new Effettuato(utente.getEmail(), codiceFattura, dataAcquisto);
-		EffetuatoDao eDao = new EffetuatoDao();
+		Effettuato effettuato = new Effettuato(utente.getEmail(), codiceFattura, dataAcquisto);
+		EffetuatoDao effettuatoDao = new EffetuatoDao();
 		
 		IndirizzoOrdine indirizzo = new IndirizzoOrdine(codiceFattura, indirizzoOrdine);
-		IndirizzoOrdineDao ioDao = new IndirizzoOrdineDao();
+		IndirizzoOrdineDao indirizzoOrdineDao = new IndirizzoOrdineDao();
 		
 		Composizione c;
 		ComposizioneDao cDao = new ComposizioneDao();
 		
+		//Salva sul db le info sull'acquisto
 		try {
 			
-			oDao.doSave(o);
-			eDao.doSave(ef);
-			ioDao.doSave(indirizzo);
+			ordineDao.doSave(ordine);
+			effettuatoDao.doSave(effettuato);
+			indirizzoOrdineDao.doSave(indirizzo);
 			
-			for(ProdottoOrdinato po: prodottiNelCarrello) {
+			for(ProdottoNelCarrello po: prodottiNelCarrello) {
 				
 				c = new Composizione(po.getQuantità(), codiceFattura, 22, po.getProdotto().getId(), (po.getProdotto().getPrezzo()-po.getProdotto().getPrezzo()*po.getProdotto().getSconto()/100)*po.getQuantità());
 				
@@ -62,6 +64,7 @@ public class Acquisto extends HttpServlet {
 				
 			}
 			
+			//Svuota il carrello e rimuove i dati degli acquisti dalla sessione
 			carrello.svuotaCarrello();
 			request.getSession().setAttribute("carrello", carrello);
 			request.getSession().removeAttribute("codiceFattura");
@@ -74,6 +77,7 @@ public class Acquisto extends HttpServlet {
 			
 		}
 
+		//Reindirizza alla pagina di acquisto riuscito
 		response.sendRedirect("acquistoRiuscito.jsp");
 		
 	}

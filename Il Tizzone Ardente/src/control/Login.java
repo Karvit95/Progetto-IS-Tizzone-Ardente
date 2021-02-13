@@ -21,7 +21,7 @@ public class Login extends HttpServlet {
 		
 		RequestDispatcher rd;
 		
-		UtenteDao uDao = new UtenteDao();
+		UtenteDao utenteDao = new UtenteDao();
 		Utente utente = new Utente();
 		
 		String email = request.getParameter("email");
@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
 		
 		try {
 			
-			utente = uDao.doRetrieveByKey(email);
+			utente = utenteDao.doRetrieveByKey(email);
 			
 		} catch (SQLException e) {
 			
@@ -39,6 +39,7 @@ public class Login extends HttpServlet {
 		
 		}
 	
+		//Caso in cui l'utente non venga trovato all'interno del db
 		if((utente.getEmail() == null)){
 			
 			request.setAttribute("emailNonTrovata", "emailnonesiste");
@@ -47,6 +48,7 @@ public class Login extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		//Caso in cui l'utente viene trovato ma ha sbagliato a scrivere la password 
 		else if(utente.getPassword().equals(password)){
 			
 			request.getSession().setAttribute("utente", utente);
@@ -55,6 +57,7 @@ public class Login extends HttpServlet {
 			
 		}
 		
+		//Caso in cui l'utente viene trovato ma ha sbagliato a scrivere la password 
 		else{
 			
 			request.setAttribute("PasswordErrata", "PasswordErrata");

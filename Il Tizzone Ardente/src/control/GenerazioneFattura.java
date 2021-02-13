@@ -23,6 +23,7 @@ public class GenerazioneFattura extends HttpServlet {
 		String codiceFattura;
 		LocalDate dataAcquisto;
 		
+		//Genera un codice fattura
 		int count = 20;
 		StringBuilder builder = new StringBuilder();
 		while (count-- != 0) {

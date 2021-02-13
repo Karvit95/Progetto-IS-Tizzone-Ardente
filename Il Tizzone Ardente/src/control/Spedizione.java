@@ -26,15 +26,16 @@ public class Spedizione extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utente utente = (Utente) session.getAttribute("utente");
 		
+		//L'utente decide di utilizzare l'indirizzo con cui si è registrato
 		if(value == 0) {
 			
-			IndirizzoUtente iu = new IndirizzoUtente();
-			IndirizzoUtenteDao iuDao = new IndirizzoUtenteDao();
+			IndirizzoUtente indirizzoUtente = new IndirizzoUtente();
+			IndirizzoUtenteDao indirizzoUtenteDao = new IndirizzoUtenteDao();
 			
 			try {
 				
-				iu = iuDao.doRetrieveByKey(utente.getEmail());
-				IndirizzoOrdine indirizzo = new IndirizzoOrdine(iu.getCittà(), iu.getIndirizzo(), iu.getProvincia(), iu.getNumeroCivico(), iu.getCap());
+				indirizzoUtente = indirizzoUtenteDao.doRetrieveByKey(utente.getEmail());
+				IndirizzoOrdine indirizzo = new IndirizzoOrdine(indirizzoUtente.getCittà(), indirizzoUtente.getIndirizzo(), indirizzoUtente.getProvincia(), indirizzoUtente.getNumeroCivico(), indirizzoUtente.getCap());
 				session.setAttribute("indirizzoOrdine", indirizzo);
 				response.sendRedirect("pagamento.jsp");
 				
@@ -45,6 +46,7 @@ public class Spedizione extends HttpServlet {
 			}	
 		}
 		
+		//Se l'utente vuole inserire un indirizzo diverso da quello con cui si è registrato
 		else if(value==1) {
 			
 			String città = request.getParameter("citta");
@@ -53,8 +55,8 @@ public class Spedizione extends HttpServlet {
 			int numeroCivico = Integer.parseInt(request.getParameter("NumeroCivico"));
 			String cap = request.getParameter("CAP");
 			
-			IndirizzoOrdine io = new IndirizzoOrdine(città, indirizzo, provincia, numeroCivico, cap);
-			session.setAttribute("indirizzoOrdine", io);
+			IndirizzoOrdine indirizzoOrdine = new IndirizzoOrdine(città, indirizzo, provincia, numeroCivico, cap);
+			session.setAttribute("indirizzoOrdine", indirizzoOrdine);
 			response.sendRedirect("pagamento.jsp");
 		}
 		

@@ -23,7 +23,7 @@ public class ListaOrdiniUtente extends HttpServlet {
 		
 		RequestDispatcher rd;
 		
-		EffetuatoDao eDao = new EffetuatoDao();
+		EffetuatoDao effettuatoDao = new EffetuatoDao();
 		ArrayList<Effettuato> listaEffettuato = new ArrayList<Effettuato>();
 		
 		Utente utente = (Utente) request.getSession().getAttribute("utente");
@@ -31,7 +31,8 @@ public class ListaOrdiniUtente extends HttpServlet {
 				
 		try {
 			
-			listaEffettuato = eDao.doRetrieveByUtente(email);
+			//recupera dal database gli ordini effettuati dall'utente
+			listaEffettuato = effettuatoDao.doRetrieveByUtente(email);
 			request.setAttribute("ordini", listaEffettuato);
 			rd = request.getRequestDispatcher("listaOrdiniUtente.jsp");
 			rd.forward(request, response);

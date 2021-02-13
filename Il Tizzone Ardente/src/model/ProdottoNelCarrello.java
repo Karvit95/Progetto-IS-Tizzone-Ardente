@@ -2,14 +2,14 @@ package model;
 
 import java.io.Serializable;
 
-public class ProdottoOrdinato implements Serializable {
+public class ProdottoNelCarrello implements Serializable {
 	
 	private static final long serialVersionUID = 8657571845222910205L;
 	
 	int quantità;
 	Prodotto prodotto;
 	
-	public ProdottoOrdinato(Prodotto p, int quantità) {
+	public ProdottoNelCarrello(Prodotto p, int quantità) {
 		this.prodotto = p;
 		this.quantità = quantità;
 	}

@@ -22,18 +22,23 @@ public class CambioPassword extends HttpServlet {
 		
 		RequestDispatcher rd;
 		
-		UtenteDao uDao = new UtenteDao();
+		UtenteDao utenteDao = new UtenteDao();
 		
+		//Dati dell'utente
 		Utente utente = (Utente) request.getSession().getAttribute("utente");
 		String email = utente.getEmail();
 		String passwordAttuale = utente.getPassword();
 		
+		//Password attuale dell'account
 		String passwordAttualeInserita = request.getParameter("passwordAttuale");
 		
+		//Password nuova 
 		String nuovaPassword = request.getParameter("up");
 		
+		//Controlla se la password attuale inserita dall'utente corrisponde a quella dell'utente
 		if(!passwordAttuale.equals(passwordAttualeInserita)){
 			
+			//se la password attuale inserita dall'utente è diversa dalla password dell'account visualizza un messaggio di errore
 			request.setAttribute("PasswordErrata", "passwordErrata");
 			rd = request.getRequestDispatcher("cambioPassword.jsp");
 			rd.forward(request, response);
@@ -43,8 +48,9 @@ public class CambioPassword extends HttpServlet {
 		else{
 			
 			try {
-			
-				uDao.cambioPassword(email, nuovaPassword);
+				
+				//Effettua il cambio della password su db
+				utenteDao.cambioPassword(email, nuovaPassword);
 				utente.setPassword(nuovaPassword);
 				request.getSession().setAttribute("utente", utente);
 				request.setAttribute("successoCambioPassword", "successo");

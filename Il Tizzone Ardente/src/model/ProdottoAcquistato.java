@@ -1,15 +1,15 @@
 package model;
 
-public class ComposizioneConProdotto {
+public class ProdottoAcquistato {
 	
 	private Prodotto prodotto;
 	private Composizione composizione;
 	
-	public ComposizioneConProdotto() {
+	public ProdottoAcquistato() {
 		
 	}
 	
-	public ComposizioneConProdotto(Prodotto prodotto, Composizione composizione) {
+	public ProdottoAcquistato(Prodotto prodotto, Composizione composizione) {
 		
 		this.prodotto = prodotto;
 		this.composizione = composizione;
