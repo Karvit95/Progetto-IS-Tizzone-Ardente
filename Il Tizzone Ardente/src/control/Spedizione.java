@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.IndirizzoUtenteDao;
 import model.IndirizzoOrdine;
 import model.IndirizzoUtente;
-import model.IndirizzoUtenteDao;
 import model.Utente;
 
 @WebServlet("/Spedizione")

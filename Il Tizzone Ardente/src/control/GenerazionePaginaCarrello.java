@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProdottoDao;
 import model.Carrello;
 import model.Prodotto;
-import model.ProdottoDao;
 import model.ProdottoNelCarrello;
 
 @WebServlet("/GenerazionePaginaCarrello")

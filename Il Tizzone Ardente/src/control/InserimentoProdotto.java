@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.IllustrazioneDao;
+import dao.ProdottoDao;
 import model.Illustrazione;
-import model.IllustrazioneDao;
 import model.Prodotto;
-import model.ProdottoDao;
 
 @WebServlet("/InserimentoProdotto")
 public class InserimentoProdotto extends HttpServlet {

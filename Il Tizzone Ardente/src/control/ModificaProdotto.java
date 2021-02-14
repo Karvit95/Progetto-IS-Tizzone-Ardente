@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ProdottoDao;
+import dao.ProdottoDao;
 
 @WebServlet("/ModificaProdotto")
 public class ModificaProdotto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd;
 		ProdottoDao pDao = new ProdottoDao();
@@ -50,8 +50,7 @@ public class ModificaProdotto extends HttpServlet {
 					
 					request.setAttribute("cambioPrezzoRiuscito", "OK");
 					rd = request.getRequestDispatcher("areaAmministratore.jsp");
-					rd.forward(request, response);
-					
+			
 				}
 				
 				else {

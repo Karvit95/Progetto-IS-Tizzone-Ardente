@@ -48,15 +48,8 @@
 					</div>
   	
   				</div>
-  			</div>
-  				
-  			<div class="row">
-  				
-  				<!-- Galleria di immagini che illustra i prodotti venduti -->
-  				<div class="col-sm-12"> <%@ include file = "elements/imageGallery.jsp" %> </div>
-  				
-			 </div>
-			 
+  			</div>	
+  			
 		</div> 
 		
 		<!-- Modal -->

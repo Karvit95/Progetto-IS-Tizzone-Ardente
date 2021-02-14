@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.EffetuatoDao;
 import model.Effettuato;
-import model.EffetuatoDao;
 
 @WebServlet("/ListaOrdiniAmministratore")
 public class ListaOrdiniAmministratore extends HttpServlet {

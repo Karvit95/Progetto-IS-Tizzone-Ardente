@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.IllustrazioneDao;
-import model.ProdottoDao;
+import dao.IllustrazioneDao;
+import dao.ProdottoDao;
 
 @WebServlet("/EliminazioneProdotto")
 public class EliminazioneProdotto extends HttpServlet {

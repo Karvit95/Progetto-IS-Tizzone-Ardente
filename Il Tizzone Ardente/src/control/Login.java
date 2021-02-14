@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.UtenteDao;
 import model.Utente;
-import model.UtenteDao;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
      
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd;
 		
@@ -44,13 +44,16 @@ public class Login extends HttpServlet {
 			
 			request.setAttribute("emailNonTrovata", "emailnonesiste");
 			
+			response.getWriter().append("Login fallito");
+			
 			rd = request.getRequestDispatcher("home.jsp");
 			rd.forward(request, response);
 		}
 		
-		//Caso in cui l'utente viene trovato ma ha sbagliato a scrivere la password 
+		//Caso l'utente e la password corrispondono
 		else if(utente.getPassword().equals(password)){
 			
+			response.getWriter().append("Login riuscito");
 			request.getSession().setAttribute("utente", utente);
 			
 			response.sendRedirect("home.jsp");
@@ -68,7 +71,7 @@ public class Login extends HttpServlet {
 		
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doGet(request, response);
 

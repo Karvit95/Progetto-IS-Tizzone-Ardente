@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.IndirizzoUtenteDao;
+import dao.UtenteDao;
 import model.IndirizzoUtente;
-import model.IndirizzoUtenteDao;
 import model.Utente;
-import model.UtenteDao;
 
 @WebServlet("/Registrazione")
 public class Registrazione extends HttpServlet {

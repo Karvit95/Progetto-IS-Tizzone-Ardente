@@ -63,6 +63,15 @@
  			centerMode: true,
  			variableWidth: true,
  			responsive: [
+ 				{
+ 	 				breakpoint: 1400,
+ 	 			    settings: {
+ 	 			    slidesToShow: 5,
+ 	 			    slidesToScroll: 5,
+ 	 			    infinite: true,
+ 	 			    dots: true
+ 	 			    }
+ 	 			  },
  			    {
  			      breakpoint: 1024,
  			      settings: {

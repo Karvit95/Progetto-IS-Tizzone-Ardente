@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ComposizioneDao;
+import dao.EffetuatoDao;
+import dao.ProdottoDao;
+import dao.UtenteDao;
 import model.Composizione;
 import model.ProdottoAcquistato;
-import model.ComposizioneDao;
 import model.Effettuato;
-import model.EffetuatoDao;
 import model.DettagliOrdine;
 import model.Prodotto;
-import model.ProdottoDao;
 import model.Utente;
-import model.UtenteDao;
 
 @WebServlet("/DettaglioOrdine")
 public class DettaglioOrdine extends HttpServlet {

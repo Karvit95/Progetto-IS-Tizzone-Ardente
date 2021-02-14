@@ -7,9 +7,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import model.DriverManagerConnectionPool;
+import dao.DriverManagerConnectionPool;
+import dao.ProdottoDao;
 import model.Prodotto;
-import model.ProdottoDao;
 
 @WebListener
 public class TizzoneArdenteContextListener implements ServletContextListener {
