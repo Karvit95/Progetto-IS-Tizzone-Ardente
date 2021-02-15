@@ -33,7 +33,7 @@ public class LoginFallito extends TestCase{
 	
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		utente = new Utente("alda@web.it", "Alda", "Russo", "3189084427", "aldarusso", false);
 	}
 
