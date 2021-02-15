@@ -32,7 +32,7 @@ public class LoginRiuscito extends TestCase{
 	
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		utente = new Utente("aldarusso@web.it", "Alda", "Russo", "3189084427", "aldarusso", false);
 	}
 
