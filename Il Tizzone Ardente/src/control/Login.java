@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProdottoDao;
 import dao.UtenteDao;
 import model.Utente;
 
@@ -16,12 +17,17 @@ import model.Utente;
 public class Login extends HttpServlet {
      
 	private static final long serialVersionUID = 1L;
+	UtenteDao utenteDao;
+	
+	@Override
+	public void init() throws ServletException {
+	    utenteDao = new UtenteDao();
+	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd;
 		
-		UtenteDao utenteDao = new UtenteDao();
 		Utente utente = new Utente();
 		
 		String email = request.getParameter("email");
@@ -65,6 +71,8 @@ public class Login extends HttpServlet {
 			
 			request.setAttribute("PasswordErrata", "PasswordErrata");
 			
+			response.getWriter().append("Login fallito");
+			
 			rd = request.getRequestDispatcher("home.jsp");
 			rd.forward(request, response);
 		}
@@ -75,5 +83,13 @@ public class Login extends HttpServlet {
 
 		doGet(request, response);
 
+	}
+
+	public UtenteDao getUtenteDao() {
+		return utenteDao;
+	}
+
+	public void setUtenteDao(UtenteDao utenteDao) {
+		this.utenteDao = utenteDao;
 	}
 }

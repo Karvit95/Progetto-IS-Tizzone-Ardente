@@ -17,13 +17,19 @@ import dao.ProdottoDao;
 @WebServlet("/EliminazioneProdotto")
 public class EliminazioneProdotto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	ProdottoDao prodottoDao;
+	IllustrazioneDao illustrazioneDao;
+	
+	@Override
+	public void init() throws ServletException {
+		prodottoDao = new ProdottoDao();
+		illustrazioneDao = new IllustrazioneDao();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd; 
-		
-		ProdottoDao prodottoDao = new ProdottoDao();
-		IllustrazioneDao illustrazioneDao = new IllustrazioneDao();
 		
 		//l'id del prodotto è necessario per identificare univocamente il prodotto che si desidera eliminare dal sito
 		String id = request.getParameter("idProdotto");
@@ -62,6 +68,8 @@ public class EliminazioneProdotto extends HttpServlet {
 		
 		else {
 			
+			response.getWriter().append("Eliminazione prdotto non riuscita");
+			
 			request.setAttribute("prodottoNonTrovato", "KO");
 			rd = request.getRequestDispatcher("areaAmministratore.jsp");
 			rd.forward(request, response);
@@ -69,9 +77,25 @@ public class EliminazioneProdotto extends HttpServlet {
 		}
 		
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
 		
+	}
+
+	public ProdottoDao getProdottoDao() {
+		return prodottoDao;
+	}
+
+	public void setProdottoDao(ProdottoDao prodottoDao) {
+		this.prodottoDao = prodottoDao;
+	}
+
+	public IllustrazioneDao getIllustrazioneDao() {
+		return illustrazioneDao;
+	}
+
+	public void setIllustrazioneDao(IllustrazioneDao illustrazioneDao) {
+		this.illustrazioneDao = illustrazioneDao;
 	}
 }

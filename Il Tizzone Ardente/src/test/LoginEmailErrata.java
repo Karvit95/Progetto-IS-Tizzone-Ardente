@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,14 +20,15 @@ import dao.UtenteDao;
 import junit.framework.TestCase;
 import model.Utente;
 
-public class LoginRiuscito extends TestCase{
+public class LoginEmailErrata extends TestCase{
 
 	@Mock
 	HttpServletRequest request;
 	@Mock
 	HttpServletResponse response;
+	
 	@Mock
-	HttpSession session;
+	RequestDispatcher rd;
 	
 	@Mock
 	UtenteDao utenteDao;
@@ -37,7 +38,7 @@ public class LoginRiuscito extends TestCase{
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		utente = new Utente("aldarusso@web.it", "Alda", "Russo", "3189084427", "aldarusso", false);
+		utente = new Utente("alda@web.it", "Alda", "Russo", "3189084427", "aldarusso", false);
 	}
 
 	@Test
@@ -46,10 +47,9 @@ public class LoginRiuscito extends TestCase{
 		Login login = new Login();
 		utenteDao = new UtenteDao();
 		
-		when(request.getParameter("email")).thenReturn("aldarusso@web.it");
+		when(request.getParameter("email")).thenReturn("alda@web.it");
 		when(request.getParameter("password")).thenReturn("aldarusso");
-		when(request.getSession()).thenReturn(session);
-	
+		when(request.getRequestDispatcher("home.jsp")).thenReturn(rd);
 
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
@@ -59,10 +59,12 @@ public class LoginRiuscito extends TestCase{
 		login.setUtenteDao(utenteDao);
 		login.doGet(request, response);
 		
-		verify(session).setAttribute("utente", utente);
+		verify(request).setAttribute("emailNonTrovata", "emailnonesiste");
+		verify(request).getRequestDispatcher("home.jsp");
+		verify(rd).forward(request, response);
 		
 		String result = sw.getBuffer().toString().trim();
-		assertEquals("Login riuscito", result);
+		assertEquals("Login fallito", result);
 		
 	}
 }

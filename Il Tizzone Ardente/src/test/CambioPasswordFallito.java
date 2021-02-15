@@ -9,53 +9,62 @@ import java.io.StringWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import control.Login;
+import control.CambioPassword;
 import junit.framework.TestCase;
 import model.Utente;
 
-public class LoginFallito extends TestCase{
-
+public class CambioPasswordFallito extends TestCase{
+	
 	@Mock
 	HttpServletRequest request;
 	@Mock
 	HttpServletResponse response;
+	@Mock
+	HttpSession session;
 	
 	@Mock
 	RequestDispatcher rd;
 	
+	@Mock
 	Utente utente;
 	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.openMocks(this);
-		utente = new Utente("alda@web.it", "Alda", "Russo", "3189084427", "aldarusso", false);
 	}
-
+	
 	@Test
-	public void test() throws Exception {
+	public void test() throws Exception{
 		
-		when(request.getParameter("email")).thenReturn("alda@web.it");
-		when(request.getParameter("password")).thenReturn("aldarusso");
-		when(request.getRequestDispatcher("home.jsp")).thenReturn(rd);
-
+		CambioPassword cambioPassword = new CambioPassword();
+		Utente utente = new Utente();
+		Utente utenteMock = new Utente("aldarusso@web.it", "Alda", "Russo", "3189084427", "aldarusso", false);
+		
+		when(request.getSession()).thenReturn(session);
+		when(request.getSession().getAttribute("utente")).thenReturn(utenteMock);
+		when(request.getParameter("passwordAttuale")).thenReturn("passwordDiversa");
+		when(request.getRequestDispatcher("cambioPassword.jsp")).thenReturn(rd);
+		
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 
 		when(response.getWriter()).thenReturn(pw);
 		
-		new Login().doGet(request, response);
+		cambioPassword.doGet(request, response);
 		
-		verify(request).setAttribute("emailNonTrovata", "emailnonesiste");
+		verify(request).setAttribute("PasswordErrata", "passwordErrata");
+		verify(request).getRequestDispatcher("cambioPassword.jsp");
 		verify(rd).forward(request, response);
 		
 		String result = sw.getBuffer().toString().trim();
-		assertEquals("Login fallito", result);
+		assertEquals("Cambio password non riuscito", result);
 		
 	}
 }

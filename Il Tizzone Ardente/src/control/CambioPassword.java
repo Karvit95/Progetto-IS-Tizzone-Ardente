@@ -17,12 +17,16 @@ import model.Utente;
 public class CambioPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	UtenteDao utenteDao;
+	
+	@Override
+	public void init() throws ServletException {
+	    utenteDao = new UtenteDao();
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd;
-		
-		UtenteDao utenteDao = new UtenteDao();
 		
 		//Dati dell'utente
 		Utente utente = (Utente) request.getSession().getAttribute("utente");
@@ -39,6 +43,7 @@ public class CambioPassword extends HttpServlet {
 		if(!passwordAttuale.equals(passwordAttualeInserita)){
 			
 			//se la password attuale inserita dall'utente è diversa dalla password dell'account visualizza un messaggio di errore
+			response.getWriter().append("Cambio password non riuscito");
 			request.setAttribute("PasswordErrata", "passwordErrata");
 			rd = request.getRequestDispatcher("cambioPassword.jsp");
 			rd.forward(request, response);
@@ -67,9 +72,17 @@ public class CambioPassword extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
 		
+	}
+	
+	public UtenteDao getUtenteDao() {
+		return utenteDao;
+	}
+
+	public void setUtenteDao(UtenteDao utenteDao) {
+		this.utenteDao = utenteDao;
 	}
 }
